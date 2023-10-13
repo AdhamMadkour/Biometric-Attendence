@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "biometric attendence"
+version = "0.1.0"
+description = ""
+authors = ["Adham Ahmed <adham.ahmed@bld.ai>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10,<3.13"
+pyzk = "^0.9"
+xlrd = "^2.0.1"
+pandas = "^2.1.1"
+openpyxl = "^3.1.2"
+tkcalendar = "^1.6.1"
+pyinstaller = "^6.0.0"
+auto-py-to-exe = "^2.40.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
