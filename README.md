@@ -42,7 +42,7 @@ This Python script is designed to generate attendance and payroll reports for em
 
 3. Enter the IP address of the ZK attendance machine, select the start and end dates, and click the "Generate Report" button.
 
-                     ![Alt Text](./Documenting/4.png)
+   ![Alt Text](./Documenting/4.png)
 
 4. The reports will be generated and saved in the "Data" directory.
 
