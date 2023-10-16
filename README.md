@@ -42,7 +42,10 @@ This Python script is designed to generate attendance and payroll reports for em
 
 4. The reports will be generated and saved in the "Data" directory.
 
+5. Make sure that the data about the Employee is written in the Employee sheet ID and salary rate
 ![Alt Text](./Documenting/1.png)
+![Alt Text](./Documenting/2.png)
+![Alt Text](./Documenting/3.png)
 
 ## Note
 
