@@ -3,6 +3,7 @@
 This Python script is designed to generate attendance and payroll reports for employees in a company using a ZK attendance machine. It utilizes the tkinter library for the user interface, openpyxl for Excel file manipulation, and the tkcalendar library for date selection. The script fetches attendance data from the ZK attendance machine, matches it with employee records from an Excel file, and generates detailed reports for each employee and a summary report for all employees.
 
 ## Prerequisites
+
 - Python 3.x
 - tkinter (for the GUI)
 - openpyxl (for Excel file operations)
@@ -18,6 +19,7 @@ This Python script is designed to generate attendance and payroll reports for em
 3. **Employee Data**: It reads employee data from an Excel file named "Employee.xlsx" (must be in the same directory as the script) and stores it in a dictionary. The employee data includes employee ID, name, salary, and salary per hour.
 
 4. **Report Generation**: The script generates two Excel files. The first file contains a summary report with the following columns:
+
    - Employee ID
    - Employee Name
    - Total Work Hours
@@ -40,12 +42,14 @@ This Python script is designed to generate attendance and payroll reports for em
 
 3. Enter the IP address of the ZK attendance machine, select the start and end dates, and click the "Generate Report" button.
 
+                     ![Alt Text](./Documenting/4.png)
+
 4. The reports will be generated and saved in the "Data" directory.
 
 5. Make sure that the data about the Employee is written in the Employee sheet ID and salary rate
-![Alt Text](./Documenting/1.png)
-![Alt Text](./Documenting/2.png)
-![Alt Text](./Documenting/3.png)
+   ![Alt Text](./Documenting/1.png)
+   ![Alt Text](./Documenting/2.png)
+   ![Alt Text](./Documenting/3.png)
 
 ## Note
 
@@ -66,5 +70,3 @@ This Python script is designed to generate attendance and payroll reports for em
 ## License
 
 This script is provided under an open-source license. You are free to modify and use it according to your requirements.
-
-
