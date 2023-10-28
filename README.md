@@ -9,6 +9,7 @@ This Python script is designed to generate attendance and payroll reports for em
 - openpyxl (for Excel file operations)
 - tkcalendar (for date selection)
 - zk (for ZK attendance machine communication)
+- poetry (for dependency management)
 
 ## Usage
 

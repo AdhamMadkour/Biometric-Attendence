@@ -1,11 +1,11 @@
 import tkinter as tk
 from datetime import datetime
 from decimal import Decimal
-from tkinter import messagebox, ttk
+from tkinter import messagebox, ttk, filedialog
 
 import openpyxl
 from openpyxl.styles import Font, PatternFill
-from tkcalendar import Calendar
+from tkcalendar import Calendar, DateEntry
 from zk import ZK
 
 
@@ -241,24 +241,39 @@ root = tk.Tk()
 root.title("تقرير الحضور والانصراف للشركة المصرية")
 
 ip_label = ttk.Label(root, text=": ادخل عنوان الجهاز")
-ip_label.grid(row=0, column=1, padx=0, pady=5, sticky="w")
+ip_label.grid(row=0, column=1, padx=0, pady=0, sticky="w")
 ip_entry = ttk.Entry(root)
-ip_entry.grid(row=0, column=0, padx=50, pady=5, sticky="w")
+ip_entry.grid(row=0, column=0, padx=0, pady=0)
 ip_entry.insert(0, "192.168.1.202")
 
+# Calendar start date and end date
+start_label = ttk.Label(root, text=": تاريخ البدء")
+end_label = ttk.Label(root, text=": تاريخ الانتهاء")
+start_label.grid(row=2, column=1, padx=10, pady=10, sticky="w")
+end_label.grid(row=3, column=1, padx=10, pady=10, sticky="w")
 
-start_label = ttk.Label(root, text="تاريخ البدء")
-end_label = ttk.Label(root, text="تاريخ الانتهاء")
-start_label.grid(row=2, column=0, padx=10, pady=10, sticky="w")
-end_label.grid(row=3, column=0, padx=10, pady=10, sticky="w")
-
-start_calendar = Calendar(root, date_pattern="yyyy-MM-dd", selectmode="day")
-end_calendar = Calendar(root, date_pattern="yyyy-MM-dd", selectmode="day")
+start_calendar = DateEntry(root, date_pattern="yyyy-MM-dd", selectmode="day")
+end_calendar = DateEntry(root, date_pattern="yyyy-MM-dd", selectmode="day")
 
 start_calendar.grid(row=2, column=0, padx=10, pady=10)
 end_calendar.grid(row=3, column=0, padx=10, pady=10)
 
+# choose file button
+text = ttk.Entry(root, width=50)
+text.grid(row=4, column=0, padx=50, pady=5, sticky="w")
+
+
+def open_text_file():
+    filetypes = (("Excel files", "*.xlsx"), ("All files", "*.*"))
+    f = filedialog.askopenfile(filetypes=filetypes, initialdir="D:/Downloads")
+    text.insert("0", f.name)
+
+
+choose_file_button = ttk.Button(root, text="اختر ملف", command=open_text_file)
+choose_file_button.grid(row=4, column=1, columnspan=2, padx=10, pady=20)
+
+
 submit_button = ttk.Button(root, text="عمل التقرير", command=submit_dates)
-submit_button.grid(row=4, column=0, columnspan=2, padx=10, pady=20)
+submit_button.grid(row=6, column=0, columnspan=2, padx=10, pady=20)
 
 root.mainloop()
