@@ -2,6 +2,7 @@ import tkinter as tk
 from datetime import datetime
 from decimal import Decimal
 from tkinter import messagebox, ttk, filedialog
+from tktimepicker import AnalogPicker, AnalogThemes
 
 import openpyxl
 from openpyxl.styles import Font, PatternFill
@@ -226,9 +227,17 @@ def submit_dates():
     ip = ip_entry.get()
     start_date = start_calendar.get_date()
     end_date = end_calendar.get_date()
-
+    data_file_location = file_location.get()
+    shift_length = shift_entry.get()
+    time = time_picker.time()
+    hrs = time[0]
+    mins = time[1]
+    event = time[2]
+    time_to_datetime = datetime.strptime(f"{hrs}:{mins} {event}", "%I:%M %p")
+    print(time_to_datetime.time())
+    
     blow_it(start_date, end_date, ip)
-
+    
     if start_date and end_date:
         messagebox.showinfo(
             "تم عمل التقرير", f"تاريخ البدء: {start_date}\nتاريخ الانتهاء: {end_date}"
@@ -259,21 +268,37 @@ start_calendar.grid(row=2, column=0, padx=10, pady=10)
 end_calendar.grid(row=3, column=0, padx=10, pady=10)
 
 # choose file button
-text = ttk.Entry(root, width=50)
-text.grid(row=4, column=0, padx=50, pady=5, sticky="w")
+file_location = ttk.Entry(root, width=50)
+file_location.grid(row=4, column=0, padx=50, pady=5, sticky="w")
 
 
 def open_text_file():
     filetypes = (("Excel files", "*.xlsx"), ("All files", "*.*"))
     f = filedialog.askopenfile(filetypes=filetypes, initialdir="D:/Downloads")
-    text.insert("0", f.name)
+    file_location.insert("0", f.name)
 
 
 choose_file_button = ttk.Button(root, text="اختر ملف", command=open_text_file)
 choose_file_button.grid(row=4, column=1, columnspan=2, padx=10, pady=20)
 
+# shift start time
+shift_start_label = ttk.Label(root, text=": بداية الوردية")
+shift_start_label.grid(row=5, column=1, padx=10, pady=10, sticky="w")
+time_picker = AnalogPicker(root)
+time_picker.grid(row=5, column=0, padx=10, pady=10, sticky="w")
+theme = AnalogThemes(time_picker)
+theme.setNavyBlue()
+time = time_picker.time()
+
+
+# shift length
+shift_label = ttk.Label(root, text=": مدة الوردية")
+shift_label.grid(row=6, column=1, padx=10, pady=10, sticky="w")
+shift_entry = ttk.Entry(root)
+shift_entry.grid(row=6, column=0, padx=10, pady=10)
+shift_entry.insert(0, "12")
 
 submit_button = ttk.Button(root, text="عمل التقرير", command=submit_dates)
-submit_button.grid(row=6, column=0, columnspan=2, padx=10, pady=20)
+submit_button.grid(row=7, column=0, columnspan=2, padx=10, pady=20)
 
 root.mainloop()
