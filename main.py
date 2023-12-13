@@ -76,40 +76,40 @@ def blow_it(
             Emplyees[Intid].append(dict[id])
 
     wb = openpyxl.Workbook()
-    sheet = wb.active
+    sheet1 = wb.active
     # change sheet direction
-    sheet.sheet_view.rightToLeft = True
+    sheet1.sheet_view.rightToLeft = True
     # change sheet title
-    sheet.title = "المرتبات"
-    sheet.sheet_properties.tabColor = "1072BA"
+    sheet1.title = "المرتبات"
+    sheet1.sheet_properties.tabColor = "1072BA"
 
-    sheet.append(["الكود", "الاسم", "عدد ساعات العمل", "سعر الساعة", "اجمالي الراتب"])
+    sheet1.append(["الكود", "الاسم", "عدد ساعات العمل", "سعر الساعة", "اجمالي الراتب"])
     FontObj = Font(name="Arial", size=16, bold=True, italic=False, color="FF0000")
-    sheet["A1"].font = FontObj
-    sheet["B1"].font = FontObj
-    sheet["C1"].font = FontObj
-    sheet["D1"].font = FontObj
-    sheet["E1"].font = FontObj
+    sheet1["A1"].font = FontObj
+    sheet1["B1"].font = FontObj
+    sheet1["C1"].font = FontObj
+    sheet1["D1"].font = FontObj
+    sheet1["E1"].font = FontObj
     # modify each cell size
-    sheet.column_dimensions["A"].width = 10
-    sheet.column_dimensions["B"].width = 30
-    sheet.column_dimensions["C"].width = 30
-    sheet.column_dimensions["D"].width = 30
-    sheet.column_dimensions["E"].width = 30
+    sheet1.column_dimensions["A"].width = 10
+    sheet1.column_dimensions["B"].width = 30
+    sheet1.column_dimensions["C"].width = 30
+    sheet1.column_dimensions["D"].width = 30
+    sheet1.column_dimensions["E"].width = 30
     # change background color for first row to gray
-    sheet["A1"].fill = PatternFill(
+    sheet1["A1"].fill = PatternFill(
         start_color="D3D3D3", end_color="D3D3D3", fill_type="solid"
     )
-    sheet["B1"].fill = PatternFill(
+    sheet1["B1"].fill = PatternFill(
         start_color="D3D3D3", end_color="D3D3D3", fill_type="solid"
     )
-    sheet["C1"].fill = PatternFill(
+    sheet1["C1"].fill = PatternFill(
         start_color="D3D3D3", end_color="D3D3D3", fill_type="solid"
     )
-    sheet["D1"].fill = PatternFill(
+    sheet1["D1"].fill = PatternFill(
         start_color="D3D3D3", end_color="D3D3D3", fill_type="solid"
     )
-    sheet["E1"].fill = PatternFill(
+    sheet1["E1"].fill = PatternFill(
         start_color="D3D3D3", end_color="D3D3D3", fill_type="solid"
     )
 
@@ -117,21 +117,6 @@ def blow_it(
         name="Arial", size=14, bold=False, italic=False, color="000000"
     )
     FontForSum = Font(name="Arial", size=14, bold=True, italic=False, color="000000")
-    for id in Emplyees:
-        secondPrice = (Emplyees[id][2] / 60) / 60
-        timeSpent = 0
-        for i in range(0, len(Emplyees[id][3]) - 1, 2):
-            daySec = (Emplyees[id][3][i + 1] - Emplyees[id][3][i]).total_seconds()
-            timeSpent += daySec
-        sheet.append(
-            [
-                id,
-                Emplyees[id][0],
-                (timeSpent / 60) / 60,
-                Emplyees[id][2],
-                Decimal(timeSpent) * Decimal(secondPrice),
-            ]
-        )
     for row in sheet.iter_rows(min_row=2):
         for cell in row:
             cell.font = FontObjforData
@@ -238,13 +223,22 @@ def blow_it(
                 ]
             )
             totalRow += 1
-        # sheet.append(
-        #     ["", "", "", "", "", "", Decimal(timeSpent) * Decimal(secondPrice), ""]
-        # )
-        # sheet["G" + str(totalRow + 3)].font = FontForSum
-        # sheet["G" + str(totalRow + 3)].fill = PatternFill(
-        #     start_color="D3D3D3", end_color="D3D3D3", fill_type="solid"
-        # )
+        sheet.append(
+            ["", "", "", "", "", "", Decimal(timeSpent) * Decimal(secondPrice), ""]
+        )
+        sheet1.append(
+            [
+                id,
+                Emplyees[id][0],
+                (timeSpent / 60) / 60,
+                Emplyees[id][2],
+                Decimal(timeSpent) * Decimal(secondPrice),
+            ]
+        )
+        sheet["G" + str(totalRow + 3)].font = FontForSum
+        sheet["G" + str(totalRow + 3)].fill = PatternFill(
+            start_color="D3D3D3", end_color="D3D3D3", fill_type="solid"
+        )
         colered_cell = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "I1", "J1"]
         for cell in colered_cell:
             sheet[cell].font = FontObj
@@ -302,7 +296,7 @@ def submit_dates():
 
 
 root = tk.Tk()
-root.title("تقرير الحضور والانصراف للشركة المصرية")
+root.title("ELMasrya Attendance")
 
 ip_label = ttk.Label(root, text=": ادخل عنوان الجهاز")
 ip_label.grid(row=0, column=1, padx=0, pady=0, sticky="w")
