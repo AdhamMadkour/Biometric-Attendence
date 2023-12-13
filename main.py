@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 from datetime import datetime, timedelta
 from decimal import Decimal
@@ -188,12 +189,10 @@ def blow_it(
                 daySec -= 4 * 60 * 60
                 notes = "تأخير اكثر من 20 دقيقة"
 
-            # Assuming shift_length is an integer representing hours
             shift_end_time = (
                 shift_start_datetime + timedelta(hours=int(shift_length))
             ).time()
 
-            # Assuming Emplyees[id][3][i + 1] is a datetime.datetime object
             overTime = (
                 datetime.combine(datetime.today(), Emplyees[id][3][i + 1].time())
                 - datetime.combine(datetime.today(), shift_end_time)
@@ -257,7 +256,12 @@ def blow_it(
 
     start_time = start_date.strftime("%Y-%m-%d")
     end_time = end_date.strftime("%Y-%m-%d")
-    wb.save("Data/" + start_time + "+" + end_time + ".xlsx")
+    counter = 0
+    file_name = f"{start_time}_to_{end_time}_at_{shift_length}.xlsx"
+    while file_name in os.listdir("Data/"):
+        counter += 1
+        file_name = f"{start_time}_to_{end_time}_at_{shift_length}({counter}).xlsx"
+    wb.save("Data/" + file_name)
     return True
 
 
