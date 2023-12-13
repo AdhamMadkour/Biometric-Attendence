@@ -41,7 +41,6 @@ def blow_it(
         attendances = conn.get_attendance()
         conn.enable_device()
     except Exception as e:
-        print("Process terminate : {}".format(e))
         return False
     finally:
         if conn:
@@ -273,7 +272,6 @@ def submit_dates():
     mins = time[1]
     event = time[2]
     time_to_datetime = datetime.strptime(f"{hrs}:{mins} {event}", "%I:%M %p")
-    print(time_to_datetime.time())
 
     isDone = blow_it(
         start_date,
